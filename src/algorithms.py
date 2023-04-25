@@ -4,13 +4,12 @@ class algorithms(object):
 #================================================================
 # Class containing all algorithms needed for the ising model for all algorithms
 
-    def __init__(self, N, kT, array, J=1):
+    def __init__(self, N, kT, J=1):
         #=======================================================
         # Constructor to define initial parameters of algorithm
 
         self.N= N
         self.kT= kT
-        self.array= array
         self.J= J
 
     def generateRandCoordGlauber(self):
@@ -67,12 +66,17 @@ class algorithms(object):
                                        np.roll(self.array[self.sCenter2], -1, axis=0) +\
                                        np.roll(self.array[self.sCenter2], +1, axis=1) +\
                                        np.roll(self.array[self.sCenter2], -1, axis=1)))
+        
+        if (np.abs(self.coords1-self.coords2)==1).any():
+            finalE+=2
+            initE+=2
+        
         self.deltaE= finalE - initE
 
     def applyChangeGlauber(self):
         #=======================================================
         # Apply the suggested change of the metropolis algorithm according to 
-        # appropiate Boltzmann weights
+        # appropiate Boltzmann weights for glauber algorithm
         
         if self.deltaE <= 0:
             self.array[self.coords]= self.sCenterFlip
@@ -80,16 +84,39 @@ class algorithms(object):
         elif np.random.rand < np.exp(-self.deltaE/self.kT):
             self.array[self.coords]= self.sCenterFlip
 
-    
+    def applyChangeKawasaki(self):
+        #=======================================================
+        # Apply the suggested change of the metropolis algorithm according to 
+        # appropiate Boltzmann weights for kawasaki algorithm
 
+        if self.deltaE <= 0:
+            self.array[self.coords1]= self.sCenter2
+            self.array[self.coords2]= self.sCenter1
+        
+        elif np.random.rand < np.exp(-self.deltaE/self.kT):
+            self.array[self.coords1]= self.sCenter2
+            self.array[self.coords2]= self.sCenter1
 
-    def glauberStep(self):
+    def glauberStep(self, array):
         #========================================================
         # Apply one full cycle of the glauber algorithm to an array of the Ising 
         # model
-
+        
+        self.array= array
         self.generateRandCoordGlauber()
         self.findDeltaEGlauber()
         self.applyChangeGlauber()
+        return self.array
+
+    def kawasakiStep(self, array):
+        #========================================================
+        # Apply one full cycle of the kawasaki algorithm to an array of the Ising 
+        # model   
+
+        self.array= array
+        self.generateRandCoordKawasaki()
+        self.findDeltaEKawasaki()
+        self.applyChangeKawasaki()   
+        return self.array
 
         
