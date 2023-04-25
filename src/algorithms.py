@@ -8,5 +8,11 @@ class algorithms(object):
         
         self.N= N
         self.kT= kT
-        self.algorithmType= algorithmType
+
+    def generateRandCoord(self):
+        #=======================================================
+        # Generate random indexes within lattice array bounds
+
+        self.coords= np.random.randint(0, high= self.N, size= 2)
         
+    
