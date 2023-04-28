@@ -1,5 +1,6 @@
 import numpy as np
 from animate import animate
+from observables import observables
 from algorithms import algorithms
 from time import time
 
@@ -23,6 +24,7 @@ class simulate(object):
         # Update visualisation every 10 sweeps
         self.visPeriod= 10
         
+        self.observablesClass= observables()
 
     def generateInitLattice(self):
         #========================================================
@@ -52,7 +54,10 @@ class simulate(object):
         if self.timestep % 2500 == 0:
             self.animation.draw_image(self.lattice)
             self.sweep +=1
+            self.totalEnergy= self.observablesClass.totalEnergy(self.lattice)
+            self.totalMagnetisation= self.observablesClass.totalMagnetisation(self.lattice)
             #print(f'Time taken to update: {time() - self.t:.5} seconds')
+            print(f'Energy= {self.totalEnergy} #####  Magnetisation= {self.totalMagnetisation}')
         
     def runGlauberSimulation(self):
         #========================================================
