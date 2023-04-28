@@ -17,6 +17,9 @@ def main():
 
     if algorithmType == str('g'):
         simulation.runGlauberSimulation()
+    elif algorithmType == str('k'):
+        simulation.runKawasakiSimulation()
+
 
 if __name__ == '__main__':
     main()

@@ -48,25 +48,25 @@ class algorithms(object):
         self.sCenter1= self.array[self.coords1]
         self.sCenter2= self.array[self.coords2]
 
-        initE= (-self.J*self.sCenter1*(np.roll(self.array[self.sCenter1], +1, axis=0) +\
-                                       np.roll(self.array[self.sCenter1], -1, axis=0) +\
-                                       np.roll(self.array[self.sCenter1], +1, axis=1) +\
-                                       np.roll(self.array[self.sCenter1], -1, axis=1))) +\
-               (-self.J*self.sCenter2*(np.roll(self.array[self.sCenter2], +1, axis=0) +\
-                                       np.roll(self.array[self.sCenter2], -1, axis=0) +\
-                                       np.roll(self.array[self.sCenter2], +1, axis=1) +\
-                                       np.roll(self.array[self.sCenter2], -1, axis=1)))
+        initE= (-self.J*self.sCenter1*(np.roll(self.array, +1, axis=0)[self.coords1] +\
+                                       np.roll(self.array, -1, axis=0)[self.coords1] +\
+                                       np.roll(self.array, +1, axis=1)[self.coords1] +\
+                                       np.roll(self.array, -1, axis=1)[self.coords1])) +\
+               (-self.J*self.sCenter2*(np.roll(self.array, +1, axis=0)[self.coords2] +\
+                                       np.roll(self.array, -1, axis=0)[self.coords2] +\
+                                       np.roll(self.array, +1, axis=1)[self.coords2] +\
+                                       np.roll(self.array, -1, axis=1)[self.coords2]))
         
-        finalE= (-self.J*self.sCenter2*(np.roll(self.array[self.sCenter1], +1, axis=0) +\
-                                       np.roll(self.array[self.sCenter1], -1, axis=0) +\
-                                       np.roll(self.array[self.sCenter1], +1, axis=1) +\
-                                       np.roll(self.array[self.sCenter1], -1, axis=1))) +\
-               (-self.J*self.sCenter1*(np.roll(self.array[self.sCenter2], +1, axis=0) +\
-                                       np.roll(self.array[self.sCenter2], -1, axis=0) +\
-                                       np.roll(self.array[self.sCenter2], +1, axis=1) +\
-                                       np.roll(self.array[self.sCenter2], -1, axis=1)))
+        finalE= (-self.J*self.sCenter2*(np.roll(self.array, +1, axis=0)[self.coords1] +\
+                                       np.roll(self.array, -1, axis=0)[self.coords1] +\
+                                       np.roll(self.array, +1, axis=1)[self.coords1] +\
+                                       np.roll(self.array, -1, axis=1)[self.coords1])) +\
+               (-self.J*self.sCenter1*(np.roll(self.array, +1, axis=0)[self.coords2] +\
+                                       np.roll(self.array, -1, axis=0)[self.coords2] +\
+                                       np.roll(self.array, +1, axis=1)[self.coords2] +\
+                                       np.roll(self.array, -1, axis=1)[self.coords2]))
         
-        if (np.abs(self.coords1-self.coords2)==1).any():
+        if (np.abs(np.array(self.coords1)-np.array(self.coords2))==1).any():
             finalE+=2
             initE+=2
         

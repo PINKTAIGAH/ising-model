@@ -52,6 +52,7 @@ class simulate(object):
         if self.timestep % 2500 == 0:
             self.animation.draw_image(self.lattice)
             self.sweep +=1
+            #print(f'Time taken to update: {time() - self.t:.5} seconds')
         
     def runGlauberSimulation(self):
         #========================================================
@@ -66,6 +67,18 @@ class simulate(object):
             self.t= time()
             self.updateVisualisation()
             
+    def runKawasakiSimulation(self):
+        #========================================================
+        # Run simulation of kawasaki algorithm with visualisation
+
+        self.generateInitLattice()
+        self.animation= animate(self.lattice)
+        algorithmClass= algorithms(self.N, self.kT)
+        while True:
+            algorithmClass.kawasakiStep(self.lattice)
+            self.timestep+=1
+            self.t= time()
+            self.updateVisualisation()        
 
 
 
