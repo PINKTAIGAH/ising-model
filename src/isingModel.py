@@ -6,7 +6,7 @@ import sys
 from simulate import simulate
 
 def main():
-    if len(sys.argv != 4):
+    if len(sys.argv) != 4:
         raise Exception('Run file in command line as ==>\npython3 ising_model.py [Lattice size] [Temperature] [Algorithm Type]')
     
     N=int(sys.argv[1]) 
@@ -18,5 +18,5 @@ def main():
     if algorithmType == str('g'):
         simulation.runGlauberSimulation()
 
-
-    
+if __name__ == '__main__':
+    main()

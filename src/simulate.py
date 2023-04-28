@@ -1,6 +1,7 @@
 import numpy as np
 from animate import animate
 from algorithms import algorithms
+from time import time
 
 class simulate(object):
 #================================================================
@@ -14,7 +15,7 @@ class simulate(object):
         self.kT= kT
         self.algType= algType
         self.timestep= 0
-        self.sweep= 1
+        self.sweep= 0
        
         # 1 sweep ==> 2500 timesteps
         self.timestepLimit= 2500
@@ -44,13 +45,13 @@ class simulate(object):
         self.lattice= np.ones((self.N, self.N))
         self.lattice[int(self.N/4):int(3*self.N/4), int(self.N/4):int(3*self.N/4)]= -1
 
-    def sweepUpdate(self):
+    def updateVisualisation(self):
         #========================================================
-        # Update sweep value according to the current value of timestep variable
+        # Update visualisation according to update parameters
 
-        if self.timestep == self.timestepLimit:
-            self.sweep += 1
-            self.timestep = 0
+        if self.timestep % 2500 == 0:
+            self.animation.draw_image(self.lattice)
+            self.sweep +=1
         
     def runGlauberSimulation(self):
         #========================================================
@@ -62,9 +63,9 @@ class simulate(object):
         while True:
             algorithmClass.glauberStep(self.lattice)
             self.timestep+=1
-            self.sweepUpdate
-            if self.sweep % self.visPeriod == 0:
-                self.animation.draw_image(self.lattice)
+            self.t= time()
+            self.updateVisualisation()
+            
 
 
 

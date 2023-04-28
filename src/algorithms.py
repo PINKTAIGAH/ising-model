@@ -16,14 +16,14 @@ class algorithms(object):
         #=======================================================
         # Generate random indexes within lattice array bounds for glauber algorithm
 
-        self.coords= np.random.randint(0, high= self.N, size= 2)
+        self.coords= tuple(np.random.randint(0, high= self.N, size= 2))
 
     def generateRandCoordKawasaki(self):
         #=======================================================
         # Generate random indexes within lattice array bounds for glauber algorithm
 
-        self.coords1= np.random.randint(0, high= self.N, size= 2)
-        self.coords2= np.random.randint(0, high= self.N, size= 2)
+        self.coords1= tuple(np.random.randint(0, high= self.N, size= 2))
+        self.coords2= tuple(np.random.randint(0, high= self.N, size= 2))
         
     def findDeltaEGlauber(self):
         #=======================================================
@@ -31,11 +31,10 @@ class algorithms(object):
 
         self.sCenter= self.array[self.coords]
         self.sCenterFlip= -self.sCenter
-
         initE= -self.J*self.sCenter*(np.roll(self.array, +1, axis=0)[self.coords] +\
                                          np.roll(self.array, -1, axis=0)[self.coords] +\
                                          np.roll(self.array, +1, axis=1)[self.coords] +\
-                                         np.roll(self.array, -1, axis=1)[self.coords])       
+                                         np.roll(self.array, -1, axis=1)[self.coords])     
         finalE= -self.J*self.sCenterFlip*(np.roll(self.array, +1, axis=0)[self.coords] +\
                                             np.roll(self.array, -1, axis=0)[self.coords] +\
                                             np.roll(self.array, +1, axis=1)[self.coords] +\
@@ -81,7 +80,7 @@ class algorithms(object):
         if self.deltaE <= 0:
             self.array[self.coords]= self.sCenterFlip
 
-        elif np.random.rand < np.exp(-self.deltaE/self.kT):
+        elif np.random.rand() < np.exp(-self.deltaE/self.kT):
             self.array[self.coords]= self.sCenterFlip
 
     def applyChangeKawasaki(self):
@@ -93,7 +92,7 @@ class algorithms(object):
             self.array[self.coords1]= self.sCenter2
             self.array[self.coords2]= self.sCenter1
         
-        elif np.random.rand < np.exp(-self.deltaE/self.kT):
+        elif np.random.rand() < np.exp(-self.deltaE/self.kT):
             self.array[self.coords1]= self.sCenter2
             self.array[self.coords2]= self.sCenter1
 
