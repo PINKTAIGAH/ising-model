@@ -3,7 +3,7 @@ Script that will run ising model according to user defined temperature, lattice
 size and algorithm
 """
 import sys
-from simulate import simulate
+from simulate import Simulate
 
 def main():
     if len(sys.argv) != 4:
@@ -13,7 +13,7 @@ def main():
     kT=float(sys.argv[2]) 
     algorithmType= str(sys.argv[3])
 
-    simulation= simulate(N, kT, algorithmType)
+    simulation= Simulate(N, kT, algorithmType)
 
     if algorithmType == str('g'):
         simulation.runGlauberSimulation()

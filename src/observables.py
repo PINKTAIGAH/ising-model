@@ -1,6 +1,6 @@
 import numpy as np
 
-class observables(object):
+class Observables(object):
 #================================================================
 # Class containing methods to find desired observables
 

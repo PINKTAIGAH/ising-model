@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-class animate(object):
+class Animate(object):
 #===========================================================
 # Animate a simulation that returns an image without tying matplotlib to 
 # simulation steps.
@@ -31,7 +31,7 @@ def main():
     mean = (1, 2)
     cov = [[1, 0], [0, 1]]
     x= np.zeros((5,5))    
-    animation= animate(x)
+    animation= Animate(x)
     
     for i in range(100):    
         x= np.random.choice(5, size=(5,5))

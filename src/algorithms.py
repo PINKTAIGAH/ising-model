@@ -1,6 +1,6 @@
 import numpy as np
 
-class algorithms(object):
+class Algorithms(object):
 #================================================================
 # Class containing all algorithms needed for the ising model for all algorithms
 

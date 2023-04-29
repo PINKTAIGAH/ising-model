@@ -1,10 +1,10 @@
 import numpy as np
-from animate import animate
-from observables import observables
-from algorithms import algorithms
+from animate import Animate
+from observables import Observables
+from algorithms import Algorithms
 from time import time
 
-class simulate(object):
+class Simulate(object):
 #================================================================
 # Class containing all algorithms needed for the ising model for all algorithms
 
@@ -24,7 +24,7 @@ class simulate(object):
         # Update visualisation every 10 sweeps
         self.visPeriod= 10
         
-        self.observablesClass= observables()
+        self.observablesClass= Observables()
 
     def generateInitLattice(self):
         #========================================================
@@ -64,8 +64,8 @@ class simulate(object):
         # Run simulation of glauber algorithm with visualisation
 
         self.generateInitLattice()
-        self.animation= animate(self.lattice)
-        algorithmClass= algorithms(self.N, self.kT)
+        self.animation= Animate(self.lattice)
+        algorithmClass= Algorithms(self.N, self.kT)
         while True:
             algorithmClass.glauberStep(self.lattice)
             self.timestep+=1
@@ -77,8 +77,8 @@ class simulate(object):
         # Run simulation of kawasaki algorithm with visualisation
 
         self.generateInitLattice()
-        self.animation= animate(self.lattice)
-        algorithmClass= algorithms(self.N, self.kT)
+        self.animation= Animate(self.lattice)
+        algorithmClass= Algorithms(self.N, self.kT)
         while True:
             algorithmClass.kawasakiStep(self.lattice)
             self.timestep+=1
