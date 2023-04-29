@@ -52,12 +52,12 @@ class simulate(object):
         # Update visualisation according to update parameters
 
         if self.timestep % 2500 == 0:
-            self.animation.draw_image(self.lattice)
+            self.animation.drawImage(self.lattice)
             self.sweep +=1
             self.totalEnergy= self.observablesClass.totalEnergy(self.lattice)
             self.totalMagnetisation= self.observablesClass.totalMagnetisation(self.lattice)
-            #print(f'Time taken to update: {time() - self.t:.5} seconds')
-            print(f'Energy= {self.totalEnergy} #####  Magnetisation= {self.totalMagnetisation}')
+            print(f'Time taken to update: {time() - self.t:.5} seconds')
+            #print(f'Energy= {self.totalEnergy} #####  Magnetisation= {self.totalMagnetisation}')
         
     def runGlauberSimulation(self):
         #========================================================
