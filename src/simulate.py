@@ -25,6 +25,14 @@ class Simulate(object):
         self.visPeriod= 10
         
         self.observablesClass= Observables()
+        self.wipeVisualisationData()
+
+    def wipeVisualisationData(self):
+        #========================================================
+        # Wipe data from previous visualisation
+
+        with open('../data/visualisationData.csv', 'w') as f:
+            f.close()
 
     def generateInitLattice(self):
         #========================================================
@@ -56,9 +64,18 @@ class Simulate(object):
             self.sweep +=1
             self.totalEnergy= self.observablesClass.totalEnergy(self.lattice)
             self.totalMagnetisation= self.observablesClass.totalMagnetisation(self.lattice)
+            self.writeOutData()
             print(f'Time taken to update: {time() - self.t:.5} seconds')
             #print(f'Energy= {self.totalEnergy} #####  Magnetisation= {self.totalMagnetisation}')
         
+    def writeOutData(self):
+        #========================================================
+        # Write energy and magnetisation data to file
+
+        with open('../data/visualisationData.csv', 'ab') as f:
+            #f.write(b'\n')
+            np.savetxt(f, np.array([[self.sweep, self.totalEnergy, self.totalMagnetisation]]), delimiter= ',', fmt= '%d')
+    
     def runGlauberSimulation(self):
         #========================================================
         # Run simulation of glauber algorithm with visualisation
