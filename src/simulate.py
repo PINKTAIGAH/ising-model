@@ -19,7 +19,7 @@ class Simulate(object):
         self.sweep= 0
        
         # 1 sweep ==> 2500 timesteps
-        self.timestepLimit= 2500
+        self.timestepLimit= self.N**2
 
         # Update visualisation every 10 sweeps
         self.visPeriod= 10
@@ -58,10 +58,9 @@ class Simulate(object):
     def updateVisualisation(self):
         #========================================================
         # Update visualisation according to update parameters
-
-        if self.timestep % 2500 == 0:
+        
+        if self.timestep % self.timestepLimit*self.visPeriod == 0:
             self.animation.drawImage(self.lattice)
-            self.sweep +=1
             self.totalEnergy= self.observablesClass.totalEnergy(self.lattice)
             self.totalMagnetisation= self.observablesClass.totalMagnetisation(self.lattice)
             self.writeOutData()
@@ -87,6 +86,8 @@ class Simulate(object):
             algorithmClass.glauberStep(self.lattice)
             self.timestep+=1
             self.t= time()
+            if self.timestep % self.timestepLimit:
+                self.sweep+= 1
             self.updateVisualisation()
             
     def runKawasakiSimulation(self):
