@@ -73,7 +73,7 @@ class Simulate(object):
 
         with open('../data/visualisationData.csv', 'ab') as f:
             #f.write(b'\n')
-            np.savetxt(f, np.array([[self.sweep, self.totalEnergy, self.totalMagnetisation]]), delimiter= ',', fmt= '%d')
+            np.savetxt(f, np.array([self.sweep, self.totalEnergy, self.totalMagnetisation]), delimiter= ',', fmt= '%d')
     
     def runGlauberSimulation(self):
         #========================================================
